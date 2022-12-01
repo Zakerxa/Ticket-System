@@ -31,7 +31,7 @@ export default {
                         headers: {
                             "Accept": 'application/json',
                             "Content-Type": 'application/json',
-                            "X-CSRF-Token": this.CSRFTOKEN
+                            "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content,
                         },
                         credentials: "same-origin",
                         body: JSON.stringify(payload)

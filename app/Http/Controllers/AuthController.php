@@ -74,28 +74,4 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
         return response()->json(['response' => 'logout']);
     }
-
-    public function adminlogin(Request $request){
-        try {
-            $credentials = $request->validate([
-                'email' => ['required', 'email', ValidationRule::exists('users', 'email'), 'max:255'],
-                'password' => ['required','min:6','max:100'],
-            ]);
-        }
-        catch (ValidationException $th) {
-            return $th->validator->errors();
-        }
-
-        $user = User::where('email', $credentials['email'])->where('role_id', 2)->first();
-
-        if (auth()->attempt($credentials) && $user) {
-            $token = $user->createToken('supervisor')->plainTextToken;
-            return response()->json([
-                'response' => 'success',
-                'user'=> ['name'=>$user['name'],'email'=>$user['email'],'phone'=>$user['phone']],
-                'token' => $token
-            ]);
-        }
-        else return response(['errors' => 'The provided credentials do not match our records.']);
-    }
 }

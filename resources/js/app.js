@@ -37,7 +37,7 @@ const app = createApp(App).use(CKEditor).use(router).use(store);
 // Create Global Vue Property
 const global = app.config.globalProperties;
 // Define Global CSRFTOKEN
-global.CSRFTOKEN = document.head.querySelector("[name~=csrf-token][content]").content;;
+global.CSRFTOKEN = document.head.querySelector("[name~=csrf-token][content]").content;
 // Define Global AUTHORIZE
 global.$http = authorize;
 // Define Global Cookie
