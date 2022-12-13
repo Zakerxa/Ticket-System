@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', function () {
+Route::get('/{any}', function (Request $request) {
+    event(new App\Events\PublicEvent($request));
     return view('app');
 })->where('any','.*');

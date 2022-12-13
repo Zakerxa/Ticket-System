@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\TicketcreateEvent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\TicketController;
@@ -22,6 +23,11 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     // Log
     Route::get('user/log',[LogController::class,'index']);
+
+    Route::get('test',function(){
+        event(new TicketcreateEvent('ticket#34cd33f'));
+        return null;
+    });
 });
 
 

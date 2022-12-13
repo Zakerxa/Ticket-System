@@ -8,6 +8,7 @@ export default {
             return new Promise((resolve, reject) => {
                 authorize.post('api/user/create/ticket', forms)
                     .then(res => {
+                        console.log(res);
                         if (res.data.response == 'success') resolve(res);
                     })
                     .catch(err => reject())

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketcreateEvent;
 use App\Models\Log;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class TicketController extends Controller
             $ticketCreate = Ticket::create($form);
             if ($ticketCreate) {
                 $logCreate = Log::create(['title' => 'created','user_id'=>$request->user()->id,'token' => $ticketCreate['ticket']]);
+                event(new TicketcreateEvent($ticketCreate['ticket']));
                 if ($logCreate) return response()->json(['response' => 'success']);
                 else return response()->json(['response' => 'error']);
             }

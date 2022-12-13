@@ -1,6 +1,30 @@
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
-import { createApp } from 'vue';
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    // cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    forceTLS: false,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    encrypted: false,
+    enabledTransports: ['ws', 'wss']
+});
+
+const TicketCreate = window.Echo.channel('public.ticket-create');
+
+
+TicketCreate.subscribed(() => {
+    console.log("AuthUser Detect");
+}).listen('.ticket-create', (e) => {
+    console.log(e, "Creating Ticket");
+})
+
+import { createApp }
+from 'vue';
 import App from "./App.vue";
 // import Router
 import router from './router';
@@ -29,6 +53,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faHistory } from '@fortawesome/free-solid-svg-icons';
+import Echo from 'laravel-echo';
 /* add icons to the library */
 library.add(faMailForward, faRemove, faPenToSquare, faCircleLeft, faCross, faSignOut, faBell, faBars, faHistory, faCheckCircle, faEye, faEyeSlash, faSearch, faEnvelope)
 

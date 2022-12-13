@@ -39,7 +39,9 @@ export default {
             if (this.authUser) this.$store.dispatch('gettingLog');
         }).catch(() => {
             if (this.authUser) this.$store.dispatch('gettingLog');
-        })
+        });
+
+
     },
     methods: {
         clearLog() {
